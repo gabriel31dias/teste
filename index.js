@@ -43,4 +43,4 @@ io.on('connection', socket =>{
 
 console.log('carregado...')
 
-server.listen(3000);
+server.listen(process.env.PORT || 3000);
