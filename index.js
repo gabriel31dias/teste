@@ -38,6 +38,13 @@ io.on('connection', socket =>{
 
     })
 
+    socket.on('enviajson',function(data){
+        console.log('rom open' + data.nomeproduto)
+        //let json = JSON.parse(data)
+        
+       io.sockets.in(data.room).emit('receive', data);
+   })
+
 
 })
 
