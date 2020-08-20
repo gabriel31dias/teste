@@ -43,7 +43,7 @@ io.on('connection', socket =>{
         //let json = JSON.parse(data)
        
 
-        let valorunitario = parseFloat(data.valorunitario).toFixed(2)
+        //let valorunitario = parseFloat(data.valorunitario).toFixed(2)
         data.valorunitario = valorunitario
         
        io.sockets.in(data.room).emit('receive', data);
