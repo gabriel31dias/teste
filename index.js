@@ -41,7 +41,7 @@ io.on('connection', socket =>{
     socket.on('enviajson',function(data){
         console.log('rom open' + data.nomeproduto)
         //let json = JSON.parse(data)
-        data.valorunitario = parseFloat(data.valorunitario).toFixed(2)
+       // data.valorunitario = parseFloat(data.valorunitario).toFixed(2)
         
        io.sockets.in(data.room).emit('receive', data);
    })
