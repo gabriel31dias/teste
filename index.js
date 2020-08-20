@@ -41,7 +41,7 @@ io.on('connection', socket =>{
     socket.on('enviajson',function(data){
         //console.log('rom open' + data.nomeproduto)
         //let json = JSON.parse(data)
-        Math.round(x) 
+       
 
         let valorunitario = parseFloat(data.valorunitario).toFixed(2)
         data.valorunitario = valorunitario
