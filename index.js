@@ -39,10 +39,18 @@ io.on('connection', socket =>{
     })
 
     socket.on('enviajson',function(data){
-        console.log('rom open' + data.nomeproduto)
+       // console.log('rom open' + data.nomeproduto)
         //let json = JSON.parse(data)
-       let aux = data.valorunitario.replace(",", ".")
-        data.valorunitario = parseFloat(aux).toFixed(2)
+        try {
+           
+            let aux = data.valorunitario.replace(",", ".")
+            data.valorunitario = parseFloat(aux).toFixed(2)
+         }
+         catch (e) {
+           
+         }
+
+      
         
        io.sockets.in(data.room).emit('receive', data);
    })
