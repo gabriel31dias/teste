@@ -42,7 +42,7 @@ io.on('connection', socket =>{
        // console.log('rom open' + data.nomeproduto)
         //let json = JSON.parse(data)
         try {
-           
+
             let aux = data.valorunitario.replace(",", ".")
             data.valorunitario = parseFloat(aux).toFixed(2)
          }
@@ -50,8 +50,16 @@ io.on('connection', socket =>{
            
          }
 
+         try {
+             
+            let aux = data.valorunitario.replace(",", ".")
+            data.preco_custo = parseFloat(aux).toFixed(2)
+         }
+         catch (e) {
+           
+         }
+
       
-        
        io.sockets.in(data.room).emit('receive', data);
    })
 
