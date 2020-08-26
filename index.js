@@ -51,10 +51,11 @@ io.on('connection', socket =>{
          }
 
          try {
-             
+
             let aux = data.valorunitario.replace(",", ".")
             data.preco_custo = parseFloat(aux).toFixed(2)
          }
+         
          catch (e) {
            
          }
