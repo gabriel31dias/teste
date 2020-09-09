@@ -60,6 +60,16 @@ io.on('connection', socket =>{
            
          }
 
+         try {
+
+            let aux = data.valorcusto.replace(",", ".")
+            data.valorcusto = parseFloat(aux).toFixed(2)
+         }
+         
+         catch (e) {
+           
+         }
+
 
         
 
