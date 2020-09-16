@@ -1,18 +1,33 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const bodyparser = require('body-parser');
+const { urlencoded } = require('body-parser');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-app.use(express.static(path.join(__dirname, 'public')));
-app.set('views', path.join(__dirname, 'public'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+
+app.use(bodyparser.json)
+app.use(bodyparser.urlencoded({extended:false}))
+
 
 
 
 app.use('/', (req,res) =>{
-    res.render('index.html');
+    //res.render('index.html');
 })
+
+
+app.post('/notifica', function (req, res) {
+
+  let  bb = req.body
+ /// gg = JSON.parse(req)
+  
+ 
+ return res.send('fesfes')
+
+
+});
+  
 
 let messages = [];
 
@@ -35,12 +50,12 @@ io.on('connection', socket =>{
     socket.on('canalcomunica',function(data){
          console.log(data.room)
          io.sockets.in(data.room).emit('receive', data);
-
     })
 
     socket.on('enviajson',function(data){
        // console.log('rom open' + data.nomeproduto)
         //let json = JSON.parse(data)
+
         try {
 
             let aux = data.valorunitario.replace(",", ".")
@@ -71,9 +86,6 @@ io.on('connection', socket =>{
          }
 
 
-        
-
-      
        io.sockets.in(data.room).emit('receive', data);
    })
 
