@@ -1,40 +1,18 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const servex = express();
-const bodyparser = require('body-parser');
-const { urlencoded } = require('body-parser');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const router = express.Router()
-const porthttp = 3400;
-const portsocket = 3000;
-
-let express2 = require('express'),
-    appx = express();
-var bodyParser = require('body-parser');
-
-appx.use(express2.static(__dirname + '/public'));
-
-appx.use(bodyParser.urlencoded({
-   extended: false
-}));
-
-appx.use(bodyParser.json());
-
-appx.get('/', function(req, res){
-    
-    
-});
-
-
-appx.post('/comunica',function(req,res){
-    let respons = JSON.stringify(req.body)
-    res.send(respons);
-});
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'public'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 
 
+app.use('/', (req,res) =>{
+    res.render('index.html');
+})
 
 let messages = [];
 
@@ -57,12 +35,12 @@ io.on('connection', socket =>{
     socket.on('canalcomunica',function(data){
          console.log(data.room)
          io.sockets.in(data.room).emit('receive', data);
+
     })
 
     socket.on('enviajson',function(data){
        // console.log('rom open' + data.nomeproduto)
         //let json = JSON.parse(data)
-
         try {
 
             let aux = data.valorunitario.replace(",", ".")
@@ -93,22 +71,15 @@ io.on('connection', socket =>{
          }
 
 
+        
+
+      
        io.sockets.in(data.room).emit('receive', data);
    })
 
 
 })
 
+console.log('carregado...')
 
-server.listen(process.env.PORT || portsocket);
-console.log('->>> Executando socket porta' + portsocket )
-appx.listen( process.env.PORT || porthttp);
-console.log('->>> Executando http porta' + porthttp )
-
-
-
-
-
-
-
-
+server.listen(process.env.PORT || 3000);
