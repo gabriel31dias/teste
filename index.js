@@ -29,10 +29,29 @@ io.on('connection', socket =>{
 
     socket.on('createroom', function(room) {
         socket.join(room);
+
+        console.log('rom criada'+ room)
     });
+
+    socket.on('listenx', function(data) {
+        let gg = JSON.stringify(data)
+        console.log(gg)
+    });
+
+    
+
 
 
     socket.on('canalcomunica',function(data){
+         
+        try {
+           let teste = JSON.parse(data.valuexx) //Se nao for json cai no tray
+           data = JSON.parse(data.valuexx) //Se for parsea ele
+           console.log('foi parseado')
+        }
+        catch (e) {
+           console.log('nao foi parseado')
+        }
          console.log(data.room)
          io.sockets.in(data.room).emit('receive', data);
 
